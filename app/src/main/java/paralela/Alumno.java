@@ -19,11 +19,10 @@ public class Alumno extends Thread {
     for (int i = 0; i < 5; i++) {
       Integer peso = ThreadLocalRandom.current().nextInt(PESO_MIN, PESO_MAX + 1);
       try {
-        cesto.tirar(peso);
+        cesto.tirar(peso, nombre);
       } catch (InterruptedException e) {
         break;
       }
-      System.out.printf("%s tiró basura con un peso de %d\n", nombre, peso);
     }
   }
 }
