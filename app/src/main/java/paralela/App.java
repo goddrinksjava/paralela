@@ -1,30 +1,29 @@
 package paralela;
 
-import java.util.List;
-
 public class App {
   public static void main(String[] args) {
-    Cesto cesto = new Cesto();
+    int[] array = new int[100];
 
-    List<Alumno> alumnos = List.of(
-        new Alumno(cesto, "Juan"),
-        new Alumno(cesto, "Miguel"),
-        new Alumno(cesto, "Perla"),
-        new Alumno(cesto, "Edson"),
-        new Alumno(cesto, "Erick"));
-    Intendente intendente = new Intendente(cesto);
+    new RandomFillTask(array).invoke();
+    printM(array);
 
-    alumnos.forEach(alumno -> alumno.start());
-    intendente.start();
+    System.out.println();
 
-    alumnos.forEach(alumno -> {
-      try {
-        alumno.join();
-      } catch (InterruptedException e) {
-        e.printStackTrace();
+    new PrimeTask(array).invoke();
+    printM(array);
+  }
+
+  public static void printM(int[] array) {
+    for (int i = 0; i < array.length; i += 10) {
+      for (int j = 0; j < Math.min(10, array.length - i); j++) {
+        int v = array[i + j];
+        if (v < 10) {
+          System.out.printf(" %d ", array[i + j]);
+        } else {
+          System.out.printf("%d ", array[i + j]);
+        }
       }
-    });
-
-    intendente.interrupt();
+      System.out.println();
+    }
   }
 }
