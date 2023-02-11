@@ -38,6 +38,9 @@ public class PrimeTask extends RecursiveAction {
     }
 
     private static boolean isPrime(int number) {
+      if (number <= 1)
+        return false;
+
       return IntStream.rangeClosed(2, (int) (Math.sqrt(number)))
           .allMatch(n -> number % n != 0);
     }
